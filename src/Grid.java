@@ -19,7 +19,8 @@ public class Grid {
   int screenY = 0;
   Cell[][] cells;
 
-  public void paint(Graphics g, Stage stage) {
+  public void paint(Graphics g, Stage stage ) {
+    
     Graphics gridArea = g.create(offset, offset, Cell.size*visibleCols, Cell.size*visibleRows); 
     gridArea.translate(-screenX*Cell.size,-screenY*Cell.size);
     g.setColor(Color.BLACK);
@@ -31,9 +32,8 @@ public class Grid {
     int maxRow=Math.min(screenY+visibleRows, maxRows);
     for(int i=minCol; i<maxCol; i++) {
       for(int j=minRow; j<maxRow; j++) {
-        Optional<Item> item = stage.itemAtCell(cells[i][j]);
-        Optional<Actor> actor = stage.actorAtCell(cells[i][j]);
-        cells[i][j].paint(gridArea, item, actor);
+        
+        cells[i][j].paint(gridArea, stage, cells[i][j]);
       }
     }
   }

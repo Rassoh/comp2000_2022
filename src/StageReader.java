@@ -19,21 +19,15 @@ public class StageReader {
   // The following three methods may need modification
   //
   private static Actor makeActor(Cell loc, String desc, Actor.Player player) {
-    Actor actor;
+    Actor actor = null;
     BufferedImage img = images.get(desc);
-    if(desc.equals("Cat")) {
-      actor = new Cat(loc, img, desc, player);
-    } else if(desc.equals("Dog")) {
-      actor = new Dog(loc, img, desc, player);
-    } else if(desc.equals("Bird")) {
-      actor = new Bird(loc, img, desc, player);
-    } else {
-      actor = null;
-      System.err.println("Unsupported Actor: " + desc);
-      System.exit(1);
+     actor = ActorFactory.createActors(loc, img, desc, player);
+
+      return actor;
     }
-    return actor;
-  }
+      
+    
+
 
   private static Item makeItem(Cell loc, String desc) {
     Item item;

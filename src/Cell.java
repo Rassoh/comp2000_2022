@@ -12,27 +12,40 @@ public class Cell extends Rectangle {
   String desc;
   BufferedImage img;
   Color color;
+  Boolean showItems = true;
+  Boolean showActors = true;
+  Boolean showCell = true;
 
   public Cell(int c, int r, BufferedImage i) {
-    super(c*size, r*size, size, size);
+    super(c * size, r * size, size, size);
     col = c;
     row = r;
     img = i;
   }
 
-  public void paint(Graphics g, Optional<Item> i, Optional<Actor> a) {
+  public void paint(Graphics g, Stage stage, Cell c) {
+    if(!showCell)
+    return;
     g.drawImage(img, x, y, size, size, null);
-    if(i.isPresent()) {
-      i.get().paint(g);
+    if (showItems) {
+      Optional<Item> item = stage.itemAtCell(this);
+      if (item.isPresent()) {
+        item.get().paint(g);
+      }
     }
-    if(a.isPresent()) {
-      a.get().paint(g);
+
+    if (showActors) {
+      Optional<Actor> actor = stage.actorAtCell(this);
+      if (actor.isPresent()) {
+        actor.get().paint(g);
+      }
     }
   }
 
+
   @Override
   public boolean contains(Point p) {
-    if(p != null) {
+    if (p != null) {
       return super.contains(p);
     } else {
       return false;
